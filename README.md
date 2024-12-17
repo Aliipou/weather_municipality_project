@@ -8,6 +8,7 @@ This program fetches:
 It features an interactive **command-line interface (CLI)** with enhanced visuals, including:
 - Dynamic loading animations
 - Clean and colorful output using ASCII art and emojis.
+- New user-friendly commands like **help, back, clear**, and **exit**.
 
 ---
 
@@ -19,6 +20,11 @@ It features an interactive **command-line interface (CLI)** with enhanced visual
    - ASCII art headers
    - Dynamic loading effects
    - Clean error handling.
+- **Enhanced User Commands**:
+   - **`help`**: Display a list of available commands and their functions.
+   - **`clear`**: Clear the terminal screen for better readability.
+   - **`back`**: Return to the main menu without fetching data.
+   - **`exit`**: Quit the program gracefully.
 - Includes a **flowchart** file to clearly explain the program's structure.
 
 ---
