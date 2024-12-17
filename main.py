@@ -34,6 +34,22 @@ def loading_message(message):
         print(Fore.MAGENTA + ".", end="", flush=True)
     print("\n")
 
+def clear_screen():
+    """Clear the terminal screen."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def show_help():
+    """Display the help menu."""
+    print(Fore.GREEN + "\nHELP MENU")
+    print(Fore.YELLOW + "-" * 50)
+    print("Available commands:")
+    print(" - Enter a valid city name to get its weather and description.")
+    print(" - 'back'  : Return to the main menu.")
+    print(" - 'clear' : Clear the screen.")
+    print(" - 'help'  : Show this help menu.")
+    print(" - 'exit'  : Exit the program.")
+    print(Fore.YELLOW + "-" * 50 + "\n")
+
 def get_description(city):
     """Fetch city description using Wikipedia API."""
     try:
@@ -58,31 +74,41 @@ def get_description(city):
     except Exception as e:
         print(Fore.RED + f"Error fetching description: {e}")
 
-
 def main():
     """Main program loop for fetching weather and city descriptions."""
     display_header()
 
     while True:
         # Prompt user for input
-        city = input(Fore.CYAN + "\n🏙️  Enter the city name (or type 'exit' to quit): ").strip()
-        
-        # Exit condition
-        if city.lower() == 'exit':
+        city = input(Fore.CYAN + "\n🏙️  Enter the city name (or command): ").strip().lower()
+
+        # Command handling
+        if city == 'exit':
             print(Fore.YELLOW + "\nThank you for using the program! 👋 Have a great day!")
             break
+        elif city == 'help':
+            show_help()
+            continue
+        elif city == 'clear':
+            clear_screen()
+            display_header()
+            continue
+        elif city == 'back':
+            print(Fore.YELLOW + "Returning to the main menu...\n")
+            time.sleep(1)
+            continue
 
-        # Input validation
+        # Input validation for city name
         if not city.replace(" ", "").isalpha():
             print(Fore.RED + "❌ Invalid input. Please enter a valid city name without numbers or symbols.")
             continue
 
         # Fetch weather data
-        loading_message(f"Fetching weather forecast for {city}")
-        get_hourly_weather(city)
+        loading_message(f"Fetching weather forecast for {city.title()}")
+        get_hourly_weather(city.title())
 
         # Fetch city description
-        get_description(city)
+        get_description(city.title())
 
         # Add a separator between requests
         print(Fore.CYAN + "\n" + "=" * 60)
